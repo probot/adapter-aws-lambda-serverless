@@ -2,8 +2,9 @@
   "name": "@probot/serverless-lambda",
   "version": "0.0.1",
   "description": "An extension for running Probot in AWS Lambda",
-  "main": "handler.js",
+  "main": "index.js",
   "scripts": {
+    "start": "probot run ./index.js",
     "test": "jest && standard"
   },
   "repository": {
