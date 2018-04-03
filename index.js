@@ -22,7 +22,7 @@ const loadProbot = (plugin) => {
 
 module.exports.serverless = (plugin) => {
 
-  return (event, context, callback) => {
+  return async (event, context) => {
 
     // 🤖 A friendly homepage if there isn't a payload
     if (event.httpMethod === 'GET' && event.path === '/probot') {
@@ -33,7 +33,7 @@ module.exports.serverless = (plugin) => {
         },
         body: template
       }
-      return callback(null, res)
+      return context.done(null, res)
     }
 
     // Otherwise let's listen handle the payload
@@ -53,21 +53,20 @@ module.exports.serverless = (plugin) => {
     console.log(`Received event ${e}${event.body.action ? ('.' + event.body.action) : ''}`)
     if (event) {
       try {
-        probot.receive({
+        await probot.receive({
           event: e,
           payload: event.body
-        }).then(() => {
-          const res = {
-            statusCode: 200,
-            body: JSON.stringify({
-              message: 'Executed'
-            })
-          }
-          return callback(null, res)
         })
+        const res = {
+          statusCode: 200,
+          body: JSON.stringify({
+            message: 'Hi Node8!'
+          })
+        }
+        return context.done(null, res)
       } catch (err) {
         console.error(err)
-        callback(err)
+        return err
       }
     } else {
       console.error({ event, context })
