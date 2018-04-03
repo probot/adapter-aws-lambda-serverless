@@ -11,9 +11,9 @@ $ npm install @probot/serverless-lambda
 
 ```javascript
 # serverless.js
-const serverless = require('@probot/serverless-aws');
-// run the app defined in index.js
-module.exports = serverless('.')
+const serverless = require('@probot/serverless-lambda');
+const plugin = require('./')
+module.exports.probot = serverless(plugin)
 ```
 
 </details>
