@@ -1,5 +1,4 @@
-const name = 'serverless-lambda'
-const version = '0.1'
+const { name, version } = require(`${process.cwd()}/package`)
 
 module.exports.template = `
 <!DOCTYPE html>
