@@ -16,7 +16,7 @@
   "peerDependencies": {
     "probot": "^6.1.0",
     "serverless": "^1.26.0",
-    "serverless-offline": "^3.20.0",
+    "serverless-offline": "^3.20.0"
   },
   "engines": {
     "node": ">= 8.10.0",
