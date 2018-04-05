@@ -10,7 +10,7 @@ $ npm install @probot/serverless-lambda
 ```
 
 ```javascript
-# serverless.js
+# handler.js
 const serverless = require('@probot/serverless-lambda');
 const plugin = require('./')
 module.exports.probot = serverless(plugin)

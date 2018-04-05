@@ -1,6 +1,6 @@
-const { createProbot } = require('probot-ts');
-const { resolve } = require('probot-ts/lib/resolver')
-const { findPrivateKey } = require('probot-ts/lib/private-key')
+const createProbot = require('probot');
+const { resolve } = require('probot/lib/resolver')
+const { findPrivateKey } = require('probot/lib/private-key')
 const { template } = require('./views/probot')
 
 const loadProbot = (plugin) => {
