@@ -11,12 +11,12 @@
     "url": "git+https://github.com/probot/serverless-lambda.git"
   },
   "devDependencies": {
-    "serverless": "^1.26.0",
-    "serverless-offline": "^3.20.0",
     "standard": "^10.0.3"
   },
   "peerDependencies": {
-    "probot": "^6.1.0"
+    "probot": "^6.1.0",
+    "serverless": "^1.26.0",
+    "serverless-offline": "^3.20.0",
   },
   "engines": {
     "node": ">= 8.10.0",
