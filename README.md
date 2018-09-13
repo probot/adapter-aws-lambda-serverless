@@ -1,4 +1,4 @@
-## Lambda Handler for Probot
+## AWS Lambda Extension for Probot
 A [Probot](https://github.com/probot/probot) extension to make it easier to run your Probot Apps in AWS Lambda.
 
 ## Usage
