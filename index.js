@@ -1,10 +1,13 @@
-const createProbot = require('probot');
+const { Application } = require('probot')
 const { resolve } = require('probot/lib/resolver')
 const { findPrivateKey } = require('probot/lib/private-key')
 const { template } = require('./views/probot')
 
+let app
+let probot
+
 const loadProbot = (plugin) => {
-  const probot = createProbot({
+  app = app || new Application({
     id: process.env.APP_ID,
     secret: process.env.WEBHOOK_SECRET,
     cert: findPrivateKey()
@@ -14,16 +17,13 @@ const loadProbot = (plugin) => {
     plugin = resolve(plugin)
   }
 
-  probot.load(plugin)
+  app.load(plugin)
 
-  return probot
+  return app
 }
 
-
 module.exports.serverless = (plugin) => {
-
   return async (event, context) => {
-
     // 🤖 A friendly homepage if there isn't a payload
     if (event.httpMethod === 'GET' && event.path === '/probot') {
       const res = {
@@ -37,7 +37,7 @@ module.exports.serverless = (plugin) => {
     }
 
     // Otherwise let's listen handle the payload
-    const probot = loadProbot(plugin)
+    probot = probot || loadProbot(plugin)
 
     // Ends function immediately after callback
     context.callbackWaitsForEmptyEventLoop = false
@@ -53,25 +53,31 @@ module.exports.serverless = (plugin) => {
     console.log(`Received event ${e}${event.body.action ? ('.' + event.body.action) : ''}`)
     if (event) {
       try {
-        await probot.receive({
+        await app.receive({
           event: e,
           payload: event.body
         })
         const res = {
           statusCode: 200,
           body: JSON.stringify({
-            message: 'Hi Node8!'
+            message: `Received ${e}.${event.body.action}`
           })
         }
         return context.done(null, res)
       } catch (err) {
         console.error(err)
-        return err
+        return context.done(null, {
+          statusCode: 500,
+          body: JSON.stringify(err)
+        })
       }
     } else {
       console.error({ event, context })
-      callback('unknown error')
+      context.done(null, 'unknown error')
     }
+    return context.done(null, {
+      statusCode: 200,
+      body: 'Nothing to do.'
+    })
   }
-
 }

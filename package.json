@@ -10,15 +10,11 @@
     "type": "git",
     "url": "git+https://github.com/probot/serverless-lambda.git"
   },
-  "dependencies": {
-    "serverless": "^1.26.0",
-    "serverless-offline": "^3.20.0"
-  },
   "devDependencies": {
     "standard": "^10.0.3"
   },
   "peerDependencies": {
-    "probot": "^6.1.0"
+    "probot": "^7.0.0"
   },
   "engines": {
     "node": ">= 8.10.0",
@@ -34,5 +30,8 @@
   "bugs": {
     "url": "https://github.com/probot/serverless-lambda/issues"
   },
-  "homepage": "https://github.com/probot/serverless-lambda#readme"
+  "homepage": "https://github.com/probot/serverless-lambda#readme",
+  "dependencies": {
+    "probot": "^7.0.1"
+  }
 }
