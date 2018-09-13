@@ -32,6 +32,6 @@
   },
   "homepage": "https://github.com/probot/serverless-lambda#readme",
   "dependencies": {
-    "probot": "^7.0.1"
+    "probot": "^7.1.1"
   }
 }
