@@ -1,36 +1,27 @@
-const { Application } = require('probot')
+const { createProbot } = require('probot')
 const { resolve } = require('probot/lib/resolver')
 const { findPrivateKey } = require('probot/lib/private-key')
 const { template } = require('./views/probot')
-const cacheManager = require('cache-manager')
 
-let app
 let probot
-let cache
 
-const loadProbot = (plugin) => {
-  cache = cache || cacheManager.caching({
-    store: 'memory',
-    ttl: 60 * 5 // 5 minutes
-  })
-
-  app = app || new Application({
+const loadProbot = appFn => {
+  probot = probot || createProbot({
     id: process.env.APP_ID,
     secret: process.env.WEBHOOK_SECRET,
-    cert: findPrivateKey(),
-    cache
+    cert: findPrivateKey()
   })
 
-  if (typeof plugin === 'string') {
-    plugin = resolve(plugin)
+  if (typeof appFn === 'string') {
+    appFn = resolve(appFn)
   }
 
-  app.load(plugin)
+  probot.load(appFn)
 
-  return app
+  return probot
 }
 
-module.exports.serverless = (plugin) => {
+module.exports.serverless = appFn => {
   return async (event, context) => {
     // 🤖 A friendly homepage if there isn't a payload
     if (event.httpMethod === 'GET' && event.path === '/probot') {
@@ -45,14 +36,13 @@ module.exports.serverless = (plugin) => {
     }
 
     // Otherwise let's listen handle the payload
-    probot = probot || loadProbot(plugin)
+    probot = probot || loadProbot(appFn)
 
     // Ends function immediately after callback
     context.callbackWaitsForEmptyEventLoop = false
 
     // Determine incoming webhook event type
     const e = event.headers['x-github-event'] || event.headers['X-GitHub-Event']
-    const id = event.headers['x-github-delivery'] || event.headers['X-GitHub-Delivery']
 
     // Convert the payload to an Object if API Gateway stringifies it
     event.body = (typeof event.body === 'string') ? JSON.parse(event.body) : event.body
@@ -61,7 +51,7 @@ module.exports.serverless = (plugin) => {
     console.log(`Received event ${e}${event.body.action ? ('.' + event.body.action) : ''}`)
     if (event) {
       try {
-        await app.receive({
+        await probot.receive({
           event: e,
           payload: event.body
         })
