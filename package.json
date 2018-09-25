@@ -11,6 +11,8 @@
     "url": "git+https://github.com/probot/serverless-lambda.git"
   },
   "devDependencies": {
+    "jest": "^23.6.0",
+    "probot": "^7.1.2",
     "standard": "^10.0.3"
   },
   "peerDependencies": {
@@ -25,13 +27,22 @@
     "probot",
     "github"
   ],
+  "standard": {
+    "env": [
+      "jest"
+    ]
+  },
+  "jest": {
+    "testEnvironment": "node",
+    "setupFiles": [
+      "./tests/setup.js"
+    ]
+  },
   "author": "Tommy Byrd <tcbyrd@github.com>",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/probot/serverless-lambda/issues"
   },
   "homepage": "https://github.com/probot/serverless-lambda#readme",
-  "dependencies": {
-    "probot": "^7.1.1"
-  }
+  "dependencies": {}
 }
