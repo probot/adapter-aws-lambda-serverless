@@ -11,7 +11,7 @@ let cache
 const loadProbot = (plugin) => {
   cache = cache || cacheManager.caching({
     store: 'memory',
-    ttl: 60 * 60 // 1 hour
+    ttl: 60 * 5 // 5 minutes
   })
 
   app = app || new Application({
