@@ -18,7 +18,7 @@ Object {
       <div class=\\"box-shadow rounded-2 border p-6 bg-white\\">
         <h1>
           Welcome to @probot/serverless-gcf!
-          <span class=\\"Label Label--outline v-align-middle ml-2 text-gray-light\\">v0.0.1</span>
+          <span class=\\"Label Label--outline v-align-middle ml-2 text-gray-light\\">v0.2.0</span>
         </h1>
         <p>This bot was built using <a href=\\"https://github.com/probot/probot\\">Probot</a>, a framework for building GitHub Apps.</p>
       </div>
