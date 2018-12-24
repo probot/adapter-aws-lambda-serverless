@@ -52,7 +52,7 @@ module.exports.serverless = appFn => {
     if (event) {
       try {
         await probot.receive({
-          event: e,
+          name: e,
           payload: event.body
         })
         const res = {
