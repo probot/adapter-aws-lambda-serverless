@@ -9,6 +9,7 @@ const loadProbot = appFn => {
   probot = probot || createProbot({
     id: process.env.APP_ID,
     secret: process.env.WEBHOOK_SECRET,
+    webhookProxy: process.env.WEBHOOK_PROXY_URL,
     cert: findPrivateKey()
   })
 
@@ -50,7 +51,6 @@ module.exports.serverless = appFn => {
     // Do the thing
     console.log(`Received event ${e}${event.body.action ? ('.' + event.body.action) : ''}`)
     if (event) {
-      try {
         await probot.receive({
           name: e,
           payload: event.body
@@ -62,20 +62,8 @@ module.exports.serverless = appFn => {
           })
         }
         return context.done(null, res)
-      } catch (err) {
-        console.error(err)
-        return context.done(null, {
-          statusCode: 500,
-          body: JSON.stringify(err)
-        })
-      }
     } else {
-      console.error({ event, context })
-      context.done(null, 'unknown error')
+      throw new Error(`Unknown Error, No event ${context}`)
     }
-    return context.done(null, {
-      statusCode: 200,
-      body: 'Nothing to do.'
-    })
   }
 }
