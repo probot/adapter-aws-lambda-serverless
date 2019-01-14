@@ -78,6 +78,7 @@ module.exports.serverless = appFn => {
       logError({ event, context })
       context.done(null, 'unknown error')
     }
+    logInfo('Nothing to do')
     return context.done(null, {
       statusCode: 200,
       body: 'Nothing to do.'
