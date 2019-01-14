@@ -9,7 +9,6 @@ const loadProbot = appFn => {
   probot = probot || createProbot({
     id: process.env.APP_ID,
     secret: process.env.WEBHOOK_SECRET,
-    webhookProxy: process.env.WEBHOOK_PROXY_URL,
     cert: findPrivateKey()
   })
 
