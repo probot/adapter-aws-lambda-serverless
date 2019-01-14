@@ -9,7 +9,6 @@ const loadProbot = appFn => {
   probot = probot || createProbot({
     id: process.env.APP_ID,
     secret: process.env.WEBHOOK_SECRET,
-    webhookProxy: process.env.WEBHOOK_PROXY_URL,
     cert: findPrivateKey()
   })
 
@@ -17,6 +16,9 @@ const loadProbot = appFn => {
     appFn = resolve(appFn)
   }
 
+  if (process.env.SENTRY_DSN) {
+    probot.load(require('probot/lib/apps/sentry'))
+  }
   probot.load(appFn)
 
   return probot
@@ -48,9 +50,12 @@ module.exports.serverless = appFn => {
     // Convert the payload to an Object if API Gateway stringifies it
     event.body = (typeof event.body === 'string') ? JSON.parse(event.body) : event.body
 
+    const { info: logInfo, error: logError } = probot.apps[0].log
+
     // Do the thing
-    console.log(`Received event ${e}${event.body.action ? ('.' + event.body.action) : ''}`)
+    logInfo(`Received event ${e}${event.body.action ? ('.' + event.body.action) : ''}`)
     if (event) {
+      try {
         await probot.receive({
           name: e,
           payload: event.body
@@ -62,8 +67,20 @@ module.exports.serverless = appFn => {
           })
         }
         return context.done(null, res)
+      } catch (err) {
+        logError(err)
+        return context.done(null, {
+          statusCode: 500,
+          body: JSON.stringify(err)
+        })
+      }
     } else {
-      throw new Error(`Unknown Error, No event ${context}`)
+      logError({ event, context })
+      context.done(null, 'unknown error')
     }
+    return context.done(null, {
+      statusCode: 200,
+      body: 'Nothing to do.'
+    })
   }
 }
