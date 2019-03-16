@@ -27,5 +27,5 @@ Since Lambda functions do not start a normal node process, the best way we've fo
 #### Long running tasks
 Some Probot Apps that depend on long running processes or intervals will not work with this extension. This is due to the inherent architecture of serverless functions, which are designed to respond to events and stop running as quickly as possible. For longer running apps we recommend using [other deployment options](https://probot.github.io/docs/deployment).
 
-#### Only responds to Webhooks from GitHub
+#### If you use [HTTP routes](https://probot.github.io/docs/http/) or [WEBHOOK_PATH](https://probot.github.io/docs/configuration/)
 This extension is designed primarily for receiving webhooks from GitHub and responding back as a GitHub App. If you are using [HTTP Routes](https://probot.github.io/docs/http/) in your app to serve additional pages, you should take a look at [`serverless-http`](https://github.com/dougmoscrop/serverless-http), which can be used with Probot's [express server](https://github.com/probot/probot/blob/master/src/server.ts) by wrapping `probot.server`.
