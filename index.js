@@ -21,6 +21,10 @@ const loadProbot = appFn => {
   return probot
 }
 
+const lowerCaseKeys = obj =>
+  Object.keys(obj).reduce((accumulator, key) =>
+    Object.assign(accumulator, {[key.toLocaleLowerCase()]: obj[key]}), {})
+
 module.exports.serverless = appFn => {
   return async (event, context) => {
     // 🤖 A friendly homepage if there isn't a payload
@@ -42,7 +46,8 @@ module.exports.serverless = appFn => {
     context.callbackWaitsForEmptyEventLoop = false
 
     // Determine incoming webhook event type
-    const e = event.headers['x-github-event'] || event.headers['X-GitHub-Event']
+    const headers = lowerCaseKeys(event.headers)
+    const e = headers['x-github-event']
 
     // Convert the payload to an Object if API Gateway stringifies it
     event.body = (typeof event.body === 'string') ? JSON.parse(event.body) : event.body
