@@ -25,7 +25,7 @@ describe('serverless-lambda', () => {
         installation: { id: 1 }
       },
       headers: {
-        'x-github-event': 'issues',
+        'X-Github-Event': 'issues',
         'x-github-delivery': 123
       }
     }
