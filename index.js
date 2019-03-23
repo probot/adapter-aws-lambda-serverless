@@ -36,7 +36,7 @@ module.exports.serverless = appFn => {
         },
         body: template
       }
-      return context.done(null, res)
+      return res
     }
 
     // Otherwise let's listen handle the payload
@@ -66,21 +66,21 @@ module.exports.serverless = appFn => {
             message: `Received ${e}.${event.body.action}`
           })
         }
-        return context.done(null, res)
+        return res
       } catch (err) {
         console.error(err)
-        return context.done(null, {
+        return {
           statusCode: 500,
           body: JSON.stringify(err)
-        })
+        }
       }
     } else {
       console.error({ event, context })
-      context.done(null, 'unknown error')
+      throw 'unknown error'
     }
-    return context.done(null, {
+    return {
       statusCode: 200,
       body: 'Nothing to do.'
-    })
+    }
   }
 }
