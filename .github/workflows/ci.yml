@@ -1,0 +1,35 @@
+name: Node CI
+
+on: [push]
+
+jobs:
+  test:
+    strategy:
+      matrix:
+        node: ['12.x', '10.x', '8.x']
+
+    runs-on: ubuntu-latest
+
+    steps:
+      # Setup the local repo
+      - uses: actions/checkout@v1
+
+      # Setup Node.js with the correct version
+      - name: Use Node.js ${{ matrix.node }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node }}
+
+      # Cache dependencies
+      - uses: actions/cache@v1
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+
+      # Install dependencies
+      - run: npm ci
+
+      # Run tests
+      - run: npm test
