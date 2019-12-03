@@ -23,7 +23,7 @@ const loadProbot = appFn => {
 
 const lowerCaseKeys = obj =>
   Object.keys(obj).reduce((accumulator, key) =>
-    Object.assign(accumulator, {[key.toLocaleLowerCase()]: obj[key]}), {})
+    Object.assign(accumulator, { [key.toLocaleLowerCase()]: obj[key] }), {})
 
 module.exports.serverless = appFn => {
   return async (event, context) => {
