@@ -49,6 +49,11 @@ module.exports.serverless = appFn => {
     const headers = lowerCaseKeys(event.headers)
     const e = headers['x-github-event']
 
+    // If body is expected to be base64 encoded, decode it and continue
+    if (event.isBase64Encoded) {
+      event.body = Buffer.from(event.body, 'base64').toString('utf8')
+    }
+
     // Convert the payload to an Object if API Gateway stringifies it
     event.body = (typeof event.body === 'string') ? JSON.parse(event.body) : event.body
 
