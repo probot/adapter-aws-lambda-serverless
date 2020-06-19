@@ -57,6 +57,14 @@ module.exports.serverless = appFn => {
     // Convert the payload to an Object if API Gateway stringifies it
     event.body = (typeof event.body === 'string') ? JSON.parse(event.body) : event.body
 
+    // Bail for null body
+    if (!event.body) {
+      return context.done(null, {
+        statusCode: 400,
+        body: 'Event body is null.'
+      })
+    }
+
     // Do the thing
     console.log(`Received event ${e}${event.body.action ? ('.' + event.body.action) : ''}`)
     if (event) {

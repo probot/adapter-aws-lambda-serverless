@@ -11,6 +11,7 @@
     "url": "git+https://github.com/probot/serverless-lambda.git"
   },
   "devDependencies": {
+    "@types/jest": "^26.0.0",
     "jest": "^24.9.0",
     "probot": "^9.6.6",
     "standard": "^14.3.1"

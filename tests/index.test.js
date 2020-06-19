@@ -34,4 +34,20 @@ describe('serverless-lambda', () => {
     expect(context.done).toHaveBeenCalled()
     expect(spy).toHaveBeenCalled()
   })
+
+  it('responds with a 400 error when body is null', async () => {
+    const event = {
+      body: null,
+      headers: {
+        'X-Github-Event': 'issues',
+        'x-github-delivery': 123
+      }
+    }
+
+    await handler(event, context)
+    expect(context.done).toHaveBeenCalledWith(null, expect.objectContaining({
+      statusCode: 400
+    }))
+    expect(spy).not.toHaveBeenCalled()
+  })
 })
