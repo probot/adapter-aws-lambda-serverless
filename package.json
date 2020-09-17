@@ -13,6 +13,7 @@
   "devDependencies": {
     "jest": "^24.9.0",
     "probot": "^9.6.6",
+    "semantic-release": "^17.1.2",
     "standard": "^14.3.1"
   },
   "peerDependencies": {
