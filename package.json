@@ -1,6 +1,6 @@
 {
   "name": "@probot/serverless-lambda",
-  "version": "0.5.0",
+  "version": "0.6.0",
   "description": "An extension for running Probot in AWS Lambda",
   "main": "index.js",
   "scripts": {
@@ -10,14 +10,15 @@
     "type": "git",
     "url": "git+https://github.com/probot/serverless-lambda.git"
   },
+  "dependencies": {},
   "devDependencies": {
     "jest": "^24.9.0",
-    "probot": "^9.6.6",
+    "probot": "^10.1.1",
     "semantic-release": "^17.1.2",
     "standard": "^14.3.1"
   },
   "peerDependencies": {
-    "probot": "^9.6.6"
+    "probot": "^10.1.1"
   },
   "engines": {
     "node": ">= 8.10.0",
@@ -44,6 +45,5 @@
   "bugs": {
     "url": "https://github.com/probot/serverless-lambda/issues"
   },
-  "homepage": "https://github.com/probot/serverless-lambda#readme",
-  "dependencies": {}
+  "homepage": "https://github.com/probot/serverless-lambda#readme"
 }
