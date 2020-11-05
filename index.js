@@ -5,12 +5,14 @@ const { template } = require('./views/probot')
 
 let probot
 
-const loadProbot = appFn => {
-  probot = probot || new Probot({
-    id: process.env.APP_ID,
-    secret: process.env.WEBHOOK_SECRET,
-    privateKey: findPrivateKey()
-  })
+const loadProbot = (appFn) => {
+  probot =
+    probot ||
+    new Probot({
+      id: process.env.APP_ID,
+      secret: process.env.WEBHOOK_SECRET,
+      privateKey: findPrivateKey()
+    })
 
   if (typeof appFn === 'string') {
     appFn = resolve(appFn)
@@ -22,10 +24,13 @@ const loadProbot = appFn => {
 }
 
 const lowerCaseKeys = (obj = {}) =>
-  Object.keys(obj).reduce((accumulator, key) =>
-    Object.assign(accumulator, { [key.toLocaleLowerCase()]: obj[key] }), {})
+  Object.keys(obj).reduce(
+    (accumulator, key) =>
+      Object.assign(accumulator, { [key.toLocaleLowerCase()]: obj[key] }),
+    {}
+  )
 
-module.exports.serverless = appFn => {
+module.exports.serverless = (appFn) => {
   return async (event, context) => {
     // 🤖 A friendly homepage if there isn't a payload
     if (event.httpMethod === 'GET' && event.path === '/probot') {
@@ -61,7 +66,8 @@ module.exports.serverless = appFn => {
     }
 
     // Convert the payload to an Object if API Gateway stringifies it
-    event.body = (typeof event.body === 'string') ? JSON.parse(event.body) : event.body
+    event.body =
+      typeof event.body === 'string' ? JSON.parse(event.body) : event.body
 
     // Bail for null body
     if (!event.body) {
@@ -72,20 +78,21 @@ module.exports.serverless = appFn => {
     }
 
     // Do the thing
-    console.log(`Received event ${e}${event.body.action ? ('.' + event.body.action) : ''}`)
+    console.log(
+      `Received event ${e}${event.body.action ? '.' + event.body.action : ''}`
+    )
     if (event) {
       try {
         await probot.receive({
           name: e,
           payload: event.body
         })
-        const res = {
+        return {
           statusCode: 200,
           body: JSON.stringify({
             message: `Received ${e}.${event.body.action}`
           })
         }
-        return res
       } catch (err) {
         console.error(err)
         return {
@@ -95,11 +102,7 @@ module.exports.serverless = appFn => {
       }
     } else {
       console.error({ event, context })
-      throw 'unknown error'
-    }
-    return {
-      statusCode: 200,
-      body: 'Nothing to do.'
+      throw new Error('unknown error')
     }
   }
 }
