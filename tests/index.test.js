@@ -49,10 +49,8 @@ describe('serverless-lambda', () => {
       }
     }
 
-    await handler(event, context)
-    expect(context.done).toHaveBeenCalledWith(null, expect.objectContaining({
-      statusCode: 400
-    }))
+    const result = await handler(event, context)
+    expect(result.statusCode).toBe(400)
     expect(spy).not.toHaveBeenCalled()
   })
 

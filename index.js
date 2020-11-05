@@ -65,10 +65,10 @@ module.exports.serverless = appFn => {
 
     // Bail for null body
     if (!event.body) {
-      return context.done(null, {
+      return {
         statusCode: 400,
         body: 'Event body is null.'
-      })
+      }
     }
 
     // Do the thing
