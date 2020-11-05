@@ -21,7 +21,7 @@ const loadProbot = appFn => {
   return probot
 }
 
-const lowerCaseKeys = obj =>
+const lowerCaseKeys = (obj = {}) =>
   Object.keys(obj).reduce((accumulator, key) =>
     Object.assign(accumulator, { [key.toLocaleLowerCase()]: obj[key] }), {})
 
@@ -48,6 +48,12 @@ module.exports.serverless = appFn => {
     // Determine incoming webhook event type
     const headers = lowerCaseKeys(event.headers)
     const e = headers['x-github-event']
+    if (!e) {
+      return {
+        statusCode: 400,
+        body: 'X-Github-Event header is missing'
+      }
+    }
 
     // If body is expected to be base64 encoded, decode it and continue
     if (event.isBase64Encoded) {
@@ -59,10 +65,10 @@ module.exports.serverless = appFn => {
 
     // Bail for null body
     if (!event.body) {
-      return context.done(null, {
+      return {
         statusCode: 400,
         body: 'Event body is null.'
-      })
+      }
     }
 
     // Do the thing
