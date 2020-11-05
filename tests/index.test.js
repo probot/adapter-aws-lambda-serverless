@@ -54,7 +54,7 @@ describe('serverless-lambda', () => {
     expect(spy).not.toHaveBeenCalled()
   })
 
-  it('responds with a 400 when no x-github-event header is sent', async () => {
+  it('responds with a 400 when no x-github-event header is sent (#48)', async () => {
     const event = {
       body: {
         installation: { id: 1 }
@@ -69,7 +69,7 @@ describe('serverless-lambda', () => {
     expect(result.statusCode).toBe(400)
   })
 
-  it('responds with a 400 when no headers are present', async () => {
+  it('responds with a 400 when no headers are present (#48)', async () => {
     const event = {
       body: {
         installation: { id: 1 }
