@@ -1,9 +1,9 @@
-const { Probot } = require('probot')
-const { resolve } = require('probot/lib/helpers/resolve-app-function')
-const { findPrivateKey } = require('probot/lib/helpers/get-private-key')
-const { template } = require('./views/probot')
+const { Probot } = require("probot");
+const { resolve } = require("probot/lib/helpers/resolve-app-function");
+const { findPrivateKey } = require("probot/lib/helpers/get-private-key");
+const { template } = require("./views/probot");
 
-let probot
+let probot;
 
 const loadProbot = (appFn) => {
   probot =
@@ -11,98 +11,98 @@ const loadProbot = (appFn) => {
     new Probot({
       id: process.env.APP_ID,
       secret: process.env.WEBHOOK_SECRET,
-      privateKey: findPrivateKey()
-    })
+      privateKey: findPrivateKey(),
+    });
 
-  if (typeof appFn === 'string') {
-    appFn = resolve(appFn)
+  if (typeof appFn === "string") {
+    appFn = resolve(appFn);
   }
 
-  probot.load(appFn)
+  probot.load(appFn);
 
-  return probot
-}
+  return probot;
+};
 
 const lowerCaseKeys = (obj = {}) =>
   Object.keys(obj).reduce(
     (accumulator, key) =>
       Object.assign(accumulator, { [key.toLocaleLowerCase()]: obj[key] }),
     {}
-  )
+  );
 
 module.exports.serverless = (appFn) => {
   return async (event, context) => {
     // 🤖 A friendly homepage if there isn't a payload
-    if (event.httpMethod === 'GET' && event.path === '/probot') {
+    if (event.httpMethod === "GET" && event.path === "/probot") {
       const res = {
         statusCode: 200,
         headers: {
-          'Content-Type': 'text/html'
+          "Content-Type": "text/html",
         },
-        body: template
-      }
-      return res
+        body: template,
+      };
+      return res;
     }
 
     // Otherwise let's listen handle the payload
-    probot = probot || loadProbot(appFn)
+    probot = probot || loadProbot(appFn);
 
     // Ends function immediately after callback
-    context.callbackWaitsForEmptyEventLoop = false
+    context.callbackWaitsForEmptyEventLoop = false;
 
     // Determine incoming webhook event type
-    const headers = lowerCaseKeys(event.headers)
-    const e = headers['x-github-event']
+    const headers = lowerCaseKeys(event.headers);
+    const e = headers["x-github-event"];
     if (!e) {
       return {
         statusCode: 400,
-        body: 'X-Github-Event header is missing'
-      }
+        body: "X-Github-Event header is missing",
+      };
     }
 
     // If body is expected to be base64 encoded, decode it and continue
     if (event.isBase64Encoded) {
-      event.body = Buffer.from(event.body, 'base64').toString('utf8')
+      event.body = Buffer.from(event.body, "base64").toString("utf8");
     }
 
     // Convert the payload to an Object if API Gateway stringifies it
     event.body =
-      typeof event.body === 'string' ? JSON.parse(event.body) : event.body
+      typeof event.body === "string" ? JSON.parse(event.body) : event.body;
 
     // Bail for null body
     if (!event.body) {
       return {
         statusCode: 400,
-        body: 'Event body is null.'
-      }
+        body: "Event body is null.",
+      };
     }
 
     // Do the thing
     console.log(
-      `Received event ${e}${event.body.action ? '.' + event.body.action : ''}`
-    )
+      `Received event ${e}${event.body.action ? "." + event.body.action : ""}`
+    );
     if (event) {
       try {
         await probot.receive({
           name: e,
-          payload: event.body
-        })
+          payload: event.body,
+        });
         return {
           statusCode: 200,
           body: JSON.stringify({
-            message: `Received ${e}.${event.body.action}`
-          })
-        }
+            message: `Received ${e}.${event.body.action}`,
+          }),
+        };
       } catch (err) {
-        console.error(err)
+        console.error(err);
         return {
           statusCode: 500,
-          body: JSON.stringify(err)
-        }
+          body: JSON.stringify(err),
+        };
       }
     } else {
-      console.error({ event, context })
-      throw new Error('unknown error')
+      console.error({ event, context });
+      throw new Error("unknown error");
     }
-  }
-}
+  };
+};

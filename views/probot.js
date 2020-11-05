@@ -1,4 +1,4 @@
-const { name, version } = require(`${process.cwd()}/package`)
+const { name, version } = require(`${process.cwd()}/package`);
 
 module.exports.template = `
 <!DOCTYPE html>
@@ -31,4 +31,4 @@ module.exports.template = `
     </div>
   </body>
 </html>
-`
+`;

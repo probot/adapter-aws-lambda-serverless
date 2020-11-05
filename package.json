@@ -4,7 +4,10 @@
   "description": "An extension for running Probot in AWS Lambda",
   "main": "index.js",
   "scripts": {
-    "test": "jest && standard"
+    "lint": "prettier --check '*.js' '*.md' '*.json' '*/*.js' '.github/workflows/*.yml'",
+    "lint:fix": "prettier --write '*.'js '*.md' '*.json' '*/*.js' '.github/workflows/*.yml'",
+    "pretest": "npm run -s lint",
+    "test": "jest"
   },
   "repository": {
     "type": "git",
@@ -13,9 +16,9 @@
   "dependencies": {},
   "devDependencies": {
     "jest": "^24.9.0",
+    "prettier": "^2.1.2",
     "probot": "^10.1.1",
-    "semantic-release": "^17.1.2",
-    "standard": "^14.3.1"
+    "semantic-release": "^17.1.2"
   },
   "peerDependencies": {
     "probot": "^10.1.1"
