@@ -14,9 +14,14 @@ describe('serverless-lambda', () => {
 
   it('responds with the homepage', async () => {
     const event = { httpMethod: 'GET', path: '/probot' }
-    await handler(event, context)
-    expect(context.done).toHaveBeenCalled()
-    expect(context.done.mock.calls[0][0]).toMatchSnapshot()
+    const result = await handler(event, context)
+    expect(result).toMatchObject({
+      body: expect.any(String),
+      statusCode: 200,
+      headers: {
+        'Content-Type': 'text/html'
+      }
+    })
   })
 
   it('calls the event handler', async () => {
@@ -31,7 +36,6 @@ describe('serverless-lambda', () => {
     }
 
     await handler(event, context)
-    expect(context.done).toHaveBeenCalled()
     expect(spy).toHaveBeenCalled()
   })
 
