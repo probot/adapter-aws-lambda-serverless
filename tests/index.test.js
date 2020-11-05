@@ -35,8 +35,9 @@ describe('serverless-lambda', () => {
       }
     }
 
-    await handler(event, context)
+    const result = await handler(event, context)
     expect(spy).toHaveBeenCalled()
+    expect(result.statusCode).toBe(200)
   })
 
   it('responds with a 400 error when body is null', async () => {
@@ -53,5 +54,32 @@ describe('serverless-lambda', () => {
       statusCode: 400
     }))
     expect(spy).not.toHaveBeenCalled()
+  })
+
+  it('responds with a 400 when no x-github-event header is sent', async () => {
+    const event = {
+      body: {
+        installation: { id: 1 }
+      },
+      headers: {
+        'x-github-delivery': 123
+      }
+    }
+
+    const result = await handler(event, context)
+    expect(spy).not.toHaveBeenCalled()
+    expect(result.statusCode).toBe(400)
+  })
+
+  it('responds with a 400 when no headers are present', async () => {
+    const event = {
+      body: {
+        installation: { id: 1 }
+      }
+    }
+
+    const result = await handler(event, context)
+    expect(spy).not.toHaveBeenCalled()
+    expect(result.statusCode).toBe(400)
   })
 })
