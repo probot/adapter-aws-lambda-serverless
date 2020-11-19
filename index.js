@@ -1,6 +1,6 @@
 const { Probot } = require("probot");
 const { resolve } = require("probot/lib/helpers/resolve-app-function");
-const { findPrivateKey } = require("probot/lib/helpers/get-private-key");
+const { getPrivateKey } = require("@probot/get-private-key");
 const { template } = require("./views/probot");
 
 let probot;
@@ -11,7 +11,7 @@ const loadProbot = (appFn) => {
     new Probot({
       id: process.env.APP_ID,
       secret: process.env.WEBHOOK_SECRET,
-      privateKey: findPrivateKey(),
+      privateKey: getPrivateKey(),
     });
 
   if (typeof appFn === "string") {
