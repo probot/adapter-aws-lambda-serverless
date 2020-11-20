@@ -19,7 +19,21 @@ module.exports.probot = serverless(appFn);
 
 This package moves the functionality of `probot run` into a handler suitable for usage on AWS Lambda + API Gateway. Follow the documentation on [Environment Configuration](https://probot.github.io/docs/configuration/) to setup your app's environment variables. You can add these to `.env`, but for security reasons you may want to use the [AWS CLI](https://aws.amazon.com/cli/) or [Serverless Framework](https://github.com/serverless/serverless) to set Environment Variables for the function so you don't have to include any secrets in the deployed package.
 
+To use `.env` files with the [Serverless Framework](https://github.com/serverless/serverless), you can install the [serverless-dotenv-plugin](https://www.serverless.com/plugins/serverless-dotenv-plugin). This will take care of keeping your secrets out of your deployed package.
+
+### Serverless dotenv plugin usage
+```yaml
+plugins:
+  - serverless-dotenv-plugin # Load .env as environment variables
+
+provider:
+  name: aws
+  runtime: nodejs12.x
+```
+
 For the private key, since AWS environment variables cannot be multiline strings, you could [Base64 encode](https://nodejs.org/api/buffer.html#buffer_buffers_and_character_encodings) the `.pem` file you get from the GitHub App or use [KMS](https://aws.amazon.com/kms/) to encrypt and store the key.
+
+
 
 ## Differences from `probot run`
 
