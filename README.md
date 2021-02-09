@@ -49,6 +49,12 @@ functions:
 
 Make sure to configure your GitHub App registration's webhook URL to `<your lambda's URL>/api/github/webhooks`.
 
+## Examples
+
+- [example-aws-lambda-serverless](https://github.com/probot/example-aws-lambda-serverless/#readme) - Official example application that is continuously deployed to AWS Lambda
+
+Add yours!
+
 ## LICENSE
 
 [ISC](LICENSE)
