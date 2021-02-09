@@ -1,54 +1,37 @@
 {
-  "name": "@probot/serverless-lambda",
+  "name": "@probot/adapter-aws-lambda-serverless",
   "version": "0.6.0",
   "description": "An extension for running Probot in AWS Lambda",
   "main": "index.js",
   "scripts": {
-    "lint": "prettier --check '*.js' '*.md' '*.json' '*/*.js' '.github/workflows/*.yml'",
-    "lint:fix": "prettier --write '*.'js '*.md' '*.json' '*/*.js' '.github/workflows/*.yml'",
-    "pretest": "npm run -s lint",
+    "lint": "prettier --check '*.{js,md,json}' 'test/**/*.{js,json}' '.github/**/*.yml'",
+    "lint:fix": "prettier --write '*.{js,md,json}' 'test/**/*.{js,json}' '.github/**/*.yml'",
     "test": "jest"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/probot/serverless-lambda.git"
-  },
+  "repository": "https://github.com/probot/adapter-aws-lambda-serverless",
   "dependencies": {
-    "@probot/get-private-key": "^1.1.0"
+    "@probot/get-private-key": "^1.1.0",
+    "probot": "^11.0.6"
   },
   "devDependencies": {
-    "jest": "^24.9.0",
-    "prettier": "^2.1.2",
-    "probot": "^10.1.1",
-    "semantic-release": "^17.1.2"
-  },
-  "peerDependencies": {
-    "probot": "^10.1.1"
-  },
-  "engines": {
-    "node": ">= 8.10.0",
-    "npm": ">= 5.0.0"
+    "@types/jest": "^26.0.20",
+    "jest": "^26.6.3",
+    "nock": "^13.0.7",
+    "prettier": "^2.2.1"
   },
   "keywords": [
     "lambda",
     "probot",
-    "github"
+    "github",
+    "probot-adapter",
+    "serverless"
   ],
-  "standard": {
-    "env": [
-      "jest"
-    ]
-  },
   "jest": {
-    "testEnvironment": "node",
-    "setupFiles": [
-      "./tests/setup.js"
-    ]
+    "testEnvironment": "node"
   },
   "author": "Tommy Byrd <tcbyrd@github.com>",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/probot/serverless-lambda/issues"
-  },
-  "homepage": "https://github.com/probot/serverless-lambda#readme"
+  "contributors": [
+    "Gregor Martynus (https://github.com/gr2m)"
+  ],
+  "license": "ISC"
 }

@@ -1,0 +1,11 @@
+{
+  "head_commit": {
+    "id": "headcommitsha123"
+  },
+  "repository": {
+    "name": "adapter-azure-functions",
+    "owner": {
+      "login": "probot"
+    }
+  }
+}
