@@ -25,7 +25,7 @@ describe("@probot/adapter-aws-lambda-serverless", () => {
 
     const mock = nock("https://api.github.com")
       .post(
-        "/repos/probot/adapter-azure-functions/commits/headcommitsha123/comments",
+        "/repos/probot/adapter-adapter-aws-lambda-serverless/commits/headcommitsha123/comments",
         (requestBody) => {
           expect(requestBody).toStrictEqual({
             body: "Hello from test/fixtures/app.js",
@@ -62,7 +62,7 @@ describe("@probot/adapter-aws-lambda-serverless", () => {
 
     const mock = nock("https://api.github.com")
       .post(
-        "/repos/probot/adapter-azure-functions/commits/headcommitsha123/comments",
+        "/repos/probot/adapter-adapter-aws-lambda-serverless/commits/headcommitsha123/comments",
         (requestBody) => {
           expect(requestBody).toStrictEqual({
             body: "Hello from test/fixtures/app.js",

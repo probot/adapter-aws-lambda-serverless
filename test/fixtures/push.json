@@ -3,7 +3,7 @@
     "id": "headcommitsha123"
   },
   "repository": {
-    "name": "adapter-azure-functions",
+    "name": "adapter-adapter-aws-lambda-serverless",
     "owner": {
       "login": "probot"
     }
