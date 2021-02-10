@@ -25,8 +25,6 @@ async function lambdaFunction(probot, event, context) {
       body: '{"ok":true}',
     };
   } catch (error) {
-    probot.log.error(error);
-
     return {
       statusCode: error.status || 500,
       error: "ooops",
