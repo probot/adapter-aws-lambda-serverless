@@ -1,0 +1,11 @@
+{
+  "head_commit": {
+    "id": "headcommitsha123"
+  },
+  "repository": {
+    "name": "adapter-adapter-aws-lambda-serverless",
+    "owner": {
+      "login": "probot"
+    }
+  }
+}
