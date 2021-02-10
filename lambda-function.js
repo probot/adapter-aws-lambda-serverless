@@ -5,7 +5,7 @@ async function lambdaFunction(probot, event, context) {
     // Ends function immediately after callback
     context.callbackWaitsForEmptyEventLoop = false;
 
-    // this could will be simpler once we  ship `verifyAndParse()`
+    // this will be simpler once we ship `verifyAndParse()`
     // see https://github.com/octokit/webhooks.js/issues/379
     await probot.webhooks.verifyAndReceive({
       id:
