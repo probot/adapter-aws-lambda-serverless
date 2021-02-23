@@ -1,4 +1,5 @@
 const nock = require("nock");
+const path = require('path');
 
 const { createLambdaFunction, Probot, ProbotOctokit } = require("../index");
 const app = require("./fixtures/app");
@@ -28,7 +29,7 @@ describe("@probot/adapter-aws-lambda-serverless", () => {
         "/repos/probot/adapter-adapter-aws-lambda-serverless/commits/headcommitsha123/comments",
         (requestBody) => {
           expect(requestBody).toStrictEqual({
-            body: "Hello from test/fixtures/app.js",
+            body: `Hello from test${path.sep}fixtures${path.sep}app.js`,
           });
 
           return true;
@@ -65,7 +66,7 @@ describe("@probot/adapter-aws-lambda-serverless", () => {
         "/repos/probot/adapter-adapter-aws-lambda-serverless/commits/headcommitsha123/comments",
         (requestBody) => {
           expect(requestBody).toStrictEqual({
-            body: "Hello from test/fixtures/app.js",
+            body: `Hello from test${path.sep}fixtures${path.sep}app.js`,
           });
 
           return true;
