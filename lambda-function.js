@@ -1,22 +1,23 @@
 module.exports = lambdaFunction;
 
+const lowercaseKeys = require("lowercase-keys");
+
 async function lambdaFunction(probot, event, context) {
   try {
     // Ends function immediately after callback
     context.callbackWaitsForEmptyEventLoop = false;
 
+    // lowercase all headers to respect headers insensitivity (RFC 7230 $3.2 'Header Fields', see issue #62)
+    const headersLowerCase = lowercaseKeys(event.headers);
+
     // this will be simpler once we ship `verifyAndParse()`
     // see https://github.com/octokit/webhooks.js/issues/379
     await probot.webhooks.verifyAndReceive({
-      id:
-        event.headers["X-GitHub-Delivery"] ||
-        event.headers["x-github-delivery"],
-      name: event.headers["X-GitHub-Event"] || event.headers["x-github-event"],
+      id: headersLowerCase["x-github-delivery"],
+      name: headersLowerCase["x-github-event"],
       signature:
-        event.headers["X-Hub-Signature-256"] ||
-        event.headers["x-hub-signature-256"] ||
-        event.headers["X-Hub-Signature"] ||
-        event.headers["x-hub-signature"],
+        headersLowerCase["x-hub-signature-256"] ||
+        headersLowerCase["x-hub-signature"],
       payload: JSON.parse(event.body),
     });
 
