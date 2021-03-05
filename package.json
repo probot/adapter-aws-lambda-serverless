@@ -11,7 +11,7 @@
     "lint:fix": "prettier --write '*.{js,md,json}' 'test/**/*.{js,json}' '.github/**/*.yml'",
     "test": "jest"
   },
-  "repository": "https://github.com/probot/adapter-aws-lambda-serverless",
+  "repository": "github:probot/adapter-aws-lambda-serverless",
   "dependencies": {
     "@probot/get-private-key": "^1.1.0",
     "probot": "^11.0.6",
