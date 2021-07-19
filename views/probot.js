@@ -8,11 +8,11 @@ module.exports.template = `
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>${name} | built with Probot</title>
-    <link rel="stylesheet" href="https://probot.github.io/assets/css/index.css?d=1521919566">
+    <link rel="stylesheet" href="https://probot.github.io/assets/dist/styles.css">
   </head>
   <body class="height-full bg-gray-light">
     <div class="d-flex flex-column flex-justify-center flex-items-center text-center height-full">
-      <img src="https://probot.github.io/assets/logo.png" alt="Probot Logo" width="100" class="mb-6">
+      <img src="https://probot.github.io/assets/img/logo.png" alt="Probot Logo" width="100" class="mb-6">
       <div class="box-shadow rounded-2 border p-6 bg-white">
         <h1>
           Welcome to ${name}!
