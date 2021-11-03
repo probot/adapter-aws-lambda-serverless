@@ -6,6 +6,7 @@
   },
   "description": "An extension for running Probot in AWS Lambda",
   "main": "index.js",
+  "types": "index.d.ts",
   "scripts": {
     "lint": "prettier --check '*.{js,md,json}' 'test/**/*.{js,json}' '.github/**/*.yml'",
     "lint:fix": "prettier --write '*.{js,md,json}' 'test/**/*.{js,json}' '.github/**/*.yml'",
@@ -14,6 +15,7 @@
   "repository": "github:probot/adapter-aws-lambda-serverless",
   "dependencies": {
     "@probot/get-private-key": "^1.1.0",
+    "@types/aws-lambda": "^8.10.85",
     "probot": "^11.0.6",
     "lowercase-keys": "^2.0.0"
   },
