@@ -39,7 +39,7 @@ describe("@probot/adapter-aws-lambda-serverless", () => {
 
     const context = {};
     const payload = JSON.stringify(require("./fixtures/push.json"));
-    const signature = probot.webhooks.sign(payload);
+    const signature = await probot.webhooks.sign(payload);
     const event = {
       headers: {
         "x-github-delivery": "eventid123",
@@ -76,7 +76,7 @@ describe("@probot/adapter-aws-lambda-serverless", () => {
 
     const context = {};
     const payload = JSON.stringify(require("./fixtures/push.json"));
-    const signature = probot.webhooks.sign(payload);
+    const signature = await probot.webhooks.sign(payload);
     const event = {
       headers: {
         "x-github-delivery": "eventid123",
@@ -113,7 +113,7 @@ describe("@probot/adapter-aws-lambda-serverless", () => {
 
     const context = {};
     const payload = JSON.stringify(require("./fixtures/push.json"));
-    const signature = probot.webhooks.sign(payload);
+    const signature = await probot.webhooks.sign(payload);
     const event = {
       headers: {
         "X-Github-Delivery": "eventid123",
@@ -150,7 +150,7 @@ describe("@probot/adapter-aws-lambda-serverless", () => {
 
     const context = {};
     const payload = JSON.stringify(require("./fixtures/push.json"));
-    const signature = probot.webhooks.sign(payload);
+    const signature = await probot.webhooks.sign(payload);
     const event = {
       headers: {
         "X-Github-Delivery": "EventId123",
