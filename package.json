@@ -16,7 +16,7 @@
   "dependencies": {
     "@probot/get-private-key": "^1.1.0",
     "@types/aws-lambda": "^8.10.85",
-    "probot": "^11.0.6",
+    "probot": "^12.1.1",
     "lowercase-keys": "^2.0.0"
   },
   "devDependencies": {
