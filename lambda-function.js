@@ -26,10 +26,13 @@ async function lambdaFunction(probot, event, context) {
       body: '{"ok":true}',
     };
   } catch (error) {
-    console.log(error)
+    console.log(error);
     return {
+      ...error,
       statusCode: error.status || 500,
-      error: "ooops",
+      error:
+        error.message ||
+        "unhandled error in @probot/adapter-aws-lambda-serverless",
     };
   }
 }
