@@ -26,6 +26,7 @@ async function lambdaFunction(probot, event, context) {
       body: '{"ok":true}',
     };
   } catch (error) {
+    console.log(error)
     return {
       statusCode: error.status || 500,
       error: "ooops",
