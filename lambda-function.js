@@ -25,7 +25,7 @@ async function lambdaFunction(probot, event, context) {
   } catch (error) {
     return {
       statusCode: error.status || 500,
-      error: "ooops",
+      body: "Error processing GitHub Event",
     };
   }
 }
