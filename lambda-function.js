@@ -18,7 +18,7 @@ async function lambdaFunction(probot, event, context) {
       signature:
         headersLowerCase["x-hub-signature-256"] ||
         headersLowerCase["x-hub-signature"],
-      payload: JSON.parse(event.body),
+      payload: event.body,
     });
 
     return {
