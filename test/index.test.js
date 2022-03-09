@@ -51,10 +51,6 @@ describe("@probot/adapter-aws-lambda-serverless", () => {
 
     await fn(event, context);
 
-    expect(context).toStrictEqual({
-      callbackWaitsForEmptyEventLoop: false,
-    });
-
     expect(mock.activeMocks()).toStrictEqual([]);
   });
 
@@ -87,10 +83,6 @@ describe("@probot/adapter-aws-lambda-serverless", () => {
     };
 
     await fn(event, context);
-
-    expect(context).toStrictEqual({
-      callbackWaitsForEmptyEventLoop: false,
-    });
 
     expect(mock.activeMocks()).toStrictEqual([]);
   });
@@ -125,10 +117,6 @@ describe("@probot/adapter-aws-lambda-serverless", () => {
 
     await fn(event, context);
 
-    expect(context).toStrictEqual({
-      callbackWaitsForEmptyEventLoop: false,
-    });
-
     expect(mock.activeMocks()).toStrictEqual([]);
   });
 
@@ -161,10 +149,6 @@ describe("@probot/adapter-aws-lambda-serverless", () => {
     };
 
     await fn(event, context);
-
-    expect(context).toStrictEqual({
-      callbackWaitsForEmptyEventLoop: false,
-    });
 
     expect(mock.activeMocks()).toStrictEqual([]);
   });

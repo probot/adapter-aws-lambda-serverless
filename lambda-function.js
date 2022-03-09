@@ -4,9 +4,6 @@ const lowercaseKeys = require("lowercase-keys");
 
 async function lambdaFunction(probot, event, context) {
   try {
-    // Ends function immediately after callback
-    context.callbackWaitsForEmptyEventLoop = false;
-
     // lowercase all headers to respect headers insensitivity (RFC 7230 $3.2 'Header Fields', see issue #62)
     const headersLowerCase = lowercaseKeys(event.headers);
 
