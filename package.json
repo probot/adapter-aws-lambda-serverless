@@ -39,5 +39,10 @@
   "contributors": [
     "Gregor Martynus (https://github.com/gr2m)"
   ],
-  "license": "ISC"
+  "license": "ISC",
+  "renovate": {
+    "extends": [
+      "github>octokit/.github"
+    ]
+  }
 }
