@@ -19,7 +19,7 @@ async function lambdaFunction(probot, event, context) {
 
   return {
     statusCode: 200,
-    body: '{"ok":true}',
+    body: JSON.stringify({ ok: true }),
   };
 
 }
