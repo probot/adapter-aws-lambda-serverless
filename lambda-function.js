@@ -1,8 +1,21 @@
 module.exports = lambdaFunction;
 
 const lowercaseKeys = require("lowercase-keys");
+const { template } = require("./views/probot");
 
 async function lambdaFunction(probot, event, context) {
+
+  if (event.httpMethod === "GET" && event.path === "/probot") {
+    const res = {
+      statusCode: 200,
+      headers: {
+        "Content-Type": "text/html",
+      },
+      body: template,
+    };
+    return res;
+  }
+
   // lowercase all headers to respect headers insensitivity (RFC 7230 $3.2 'Header Fields', see issue #62)
   const headersLowerCase = lowercaseKeys(event.headers);
 
