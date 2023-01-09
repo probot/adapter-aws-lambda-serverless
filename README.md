@@ -17,7 +17,7 @@ const {
   createProbot,
 } = require("@probot/adapter-aws-lambda-serverless");
 const appFn = require("./");
-module.exports.webhooks = createLambdaFunction(appFn, {
+module.exports.lambdaFn = createLambdaFunction(appFn, {
   probot: createProbot(),
 });
 ```
@@ -39,8 +39,8 @@ provider:
     LOG_LEVEL: debug
 
 functions:
-  webhooks:
-    handler: handler.webhooks
+  probot:
+    handler: handler.lambdaFn
     events:
       - httpApi:
           path: /api/github/webhooks
