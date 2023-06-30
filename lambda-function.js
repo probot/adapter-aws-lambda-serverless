@@ -3,7 +3,7 @@ module.exports = lambdaFunction;
 const lowercaseKeys = require("lowercase-keys");
 const { template } = require("./views/probot");
 
-async function lambdaFunction(probot, event, context) {
+async function lambdaFunction(probot, event) {
   if (event.httpMethod === "GET" && event.path === "/probot") {
     const res = {
       statusCode: 200,
