@@ -1,5 +1,3 @@
-const { name, version } = require(`${process.cwd()}/package`);
-
 module.exports.template = `
 <!DOCTYPE html>
 <html lang="en" class="height-full">
@@ -7,7 +5,7 @@ module.exports.template = `
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>${name} | built with Probot</title>
+    <title>Built with Probot</title>
     <link rel="stylesheet" href="https://probot.github.io/assets/dist/styles.css">
   </head>
   <body class="height-full bg-gray-light">
@@ -15,8 +13,7 @@ module.exports.template = `
       <img src="https://probot.github.io/assets/img/logo.png" alt="Probot Logo" width="100" class="mb-6">
       <div class="box-shadow rounded-2 border p-6 bg-white">
         <h1>
-          Welcome to ${name}!
-          <span class="Label Label--outline v-align-middle ml-2 text-gray-light">v${version}</span>
+          Welcome to Probot!
         </h1>
         <p>This bot was built using <a href="https://github.com/probot/probot">Probot</a>, a framework for building GitHub Apps.</p>
       </div>
