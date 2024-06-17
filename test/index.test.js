@@ -4,7 +4,6 @@ const fetchMock = require("fetch-mock");
 const { createLambdaFunction, Probot, ProbotOctokit } = require("../index");
 const app = require("./fixtures/app");
 
-
 describe("@probot/adapter-aws-lambda-serverless", () => {
   let probot;
 
@@ -18,6 +17,9 @@ describe("@probot/adapter-aws-lambda-serverless", () => {
       }),
       secret: "webhooksecret123",
     });
+  });
+
+  afterEach(() => {
     fetchMock.restore();
   });
 
@@ -48,9 +50,14 @@ describe("@probot/adapter-aws-lambda-serverless", () => {
 
     await fn(event, context);
 
-    expect(mock.called((_url, options) => {
-      return JSON.parse(options.body).body === `Hello from test${path.sep}fixtures${path.sep}app.js`
-    })).toBe(true)
+    expect(
+      mock.called((_url, options) => {
+        return (
+          JSON.parse(options.body).body ===
+          `Hello from test${path.sep}fixtures${path.sep}app.js`
+        );
+      })
+    ).toBe(true);
   });
 
   test("lowercase request headers", async () => {
@@ -80,9 +87,14 @@ describe("@probot/adapter-aws-lambda-serverless", () => {
 
     await fn(event, context);
 
-    expect(mock.called((_url, options) => {
-      return JSON.parse(options.body).body === `Hello from test${path.sep}fixtures${path.sep}app.js`
-    })).toBe(true)
+    expect(
+      mock.called((_url, options) => {
+        return (
+          JSON.parse(options.body).body ===
+          `Hello from test${path.sep}fixtures${path.sep}app.js`
+        );
+      })
+    ).toBe(true);
   });
 
   test("GitHub request headers", async () => {
@@ -112,9 +124,14 @@ describe("@probot/adapter-aws-lambda-serverless", () => {
 
     await fn(event, context);
 
-    expect(mock.called((_url, options) => {
-      return JSON.parse(options.body).body === `Hello from test${path.sep}fixtures${path.sep}app.js`
-    })).toBe(true)
+    expect(
+      mock.called((_url, options) => {
+        return (
+          JSON.parse(options.body).body ===
+          `Hello from test${path.sep}fixtures${path.sep}app.js`
+        );
+      })
+    ).toBe(true);
   });
 
   test("camelcase request headers (#62)", async () => {
@@ -144,8 +161,13 @@ describe("@probot/adapter-aws-lambda-serverless", () => {
 
     await fn(event, context);
 
-    expect(mock.called((_url, options) => {
-      return JSON.parse(options.body).body === `Hello from test${path.sep}fixtures${path.sep}app.js`
-    })).toBe(true)
+    expect(
+      mock.called((_url, options) => {
+        return (
+          JSON.parse(options.body).body ===
+          `Hello from test${path.sep}fixtures${path.sep}app.js`
+        );
+      })
+    ).toBe(true);
   });
 });
