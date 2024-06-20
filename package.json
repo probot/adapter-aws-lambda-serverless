@@ -14,15 +14,14 @@
   },
   "repository": "github:probot/adapter-aws-lambda-serverless",
   "dependencies": {
-    "@probot/get-private-key": "^1.1.0",
     "@types/aws-lambda": "^8.10.85",
-    "probot": "^12.1.1",
-    "lowercase-keys": "^2.0.0"
+    "lowercase-keys": "^2.0.0",
+    "probot": "^13.3.0"
   },
   "devDependencies": {
     "@types/jest": "^29.0.0",
     "jest": "^29.0.0",
-    "nock": "^13.2.0",
+    "fetch-mock": "^10.0.5",
     "prettier": "^2.4.1"
   },
   "keywords": [
