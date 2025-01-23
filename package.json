@@ -16,7 +16,7 @@
   "dependencies": {
     "@types/aws-lambda": "^8.10.147",
     "lowercase-keys": "^2.0.0",
-    "probot": "^13.3.0"
+    "probot": "^13.4.1"
   },
   "devDependencies": {
     "@types/jest": "^29.0.0",
