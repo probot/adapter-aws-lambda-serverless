@@ -3,6 +3,8 @@ import {
   APIGatewayProxyEvent,
   APIGatewayProxyResult,
   Context,
+  LambdaFunctionURLEvent,
+  LambdaFunctionURLResult,
 } from "aws-lambda";
 import { ApplicationFunction } from "probot/lib/types";
 
@@ -15,3 +17,11 @@ export function createLambdaFunction(
   event: APIGatewayProxyEvent,
   context: Context
 ) => Promise<APIGatewayProxyResult>;
+
+export function createLambdaFunction(
+  app: ApplicationFunction,
+  options: { probot: Probot }
+): (
+  event: LambdaFunctionURLEvent,
+  context: Context
+) => Promise<LambdaFunctionURLResult>;
