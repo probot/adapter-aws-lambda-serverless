@@ -14,14 +14,6 @@ export function createLambdaFunction(
   app: ApplicationFunction,
   options: { probot: Probot }
 ): (
-  event: APIGatewayProxyEvent,
+  event: APIGatewayProxyEvent | LambdaFunctionURLEvent,
   context: Context
-) => Promise<APIGatewayProxyResult>;
-
-export function createLambdaFunction(
-  app: ApplicationFunction,
-  options: { probot: Probot }
-): (
-  event: LambdaFunctionURLEvent,
-  context: Context
-) => Promise<LambdaFunctionURLResult>;
+) => Promise<APIGatewayProxyResult | LambdaFunctionURLResult>;
