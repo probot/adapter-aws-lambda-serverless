@@ -34,7 +34,7 @@ describe("@probot/adapter-aws-lambda-serverless", () => {
       {
         body: {},
         status: 201,
-      }
+      },
     );
 
     const context = {};
@@ -57,7 +57,7 @@ describe("@probot/adapter-aws-lambda-serverless", () => {
           JSON.parse(options.body).body ===
           `Hello from test${path.sep}fixtures${path.sep}app.js`
         );
-      })
+      }),
     ).toBe(true);
   });
 
@@ -71,7 +71,7 @@ describe("@probot/adapter-aws-lambda-serverless", () => {
       {
         body: {},
         status: 201,
-      }
+      },
     );
 
     const context = {};
@@ -94,7 +94,7 @@ describe("@probot/adapter-aws-lambda-serverless", () => {
           JSON.parse(options.body).body ===
           `Hello from test${path.sep}fixtures${path.sep}app.js`
         );
-      })
+      }),
     ).toBe(true);
   });
 
@@ -108,7 +108,7 @@ describe("@probot/adapter-aws-lambda-serverless", () => {
       {
         body: {},
         status: 201,
-      }
+      },
     );
 
     const context = {};
@@ -131,7 +131,7 @@ describe("@probot/adapter-aws-lambda-serverless", () => {
           JSON.parse(options.body).body ===
           `Hello from test${path.sep}fixtures${path.sep}app.js`
         );
-      })
+      }),
     ).toBe(true);
   });
 
@@ -145,7 +145,7 @@ describe("@probot/adapter-aws-lambda-serverless", () => {
       {
         body: {},
         status: 201,
-      }
+      },
     );
 
     const context = {};
@@ -168,7 +168,7 @@ describe("@probot/adapter-aws-lambda-serverless", () => {
           JSON.parse(options.body).body ===
           `Hello from test${path.sep}fixtures${path.sep}app.js`
         );
-      })
+      }),
     ).toBe(true);
   });
 });

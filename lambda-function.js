@@ -1,7 +1,7 @@
 export default lambdaFunction;
 
-import lowercaseKeys from "lowercase-keys"
-import { template } from "./views/probot.js"
+import lowercaseKeys from "lowercase-keys";
+import { template } from "./views/probot.js";
 
 async function lambdaFunction(probot, event, context) {
   if (event.httpMethod === "GET" && event.path === "/probot") {

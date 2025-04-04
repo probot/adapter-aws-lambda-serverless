@@ -10,7 +10,7 @@ export default async function app(app) {
       context.repo({
         commit_sha: context.payload.head_commit.id,
         body: `Hello from ${relative(process.cwd(), __filename)}`,
-      })
+      }),
     );
   });
 }
