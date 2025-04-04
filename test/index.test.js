@@ -2,7 +2,7 @@ import { describe, test, expect, beforeEach, afterEach } from "vitest";
 import path from "node:path";
 import fetchMock from "fetch-mock";
 
-import { createLambdaFunction, Probot, ProbotOctokit } from "../index";
+import { createLambdaFunction, Probot, ProbotOctokit } from "../index.js";
 import app from "./fixtures/app.js";
 
 describe("@probot/adapter-aws-lambda-serverless", () => {

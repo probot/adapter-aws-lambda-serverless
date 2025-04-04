@@ -1,4 +1,4 @@
-import lambdaFunction from "./lambda-function";
+import lambdaFunction from "./lambda-function.js";
 
 export * from "probot";
 
