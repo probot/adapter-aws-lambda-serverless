@@ -1,4 +1,4 @@
-module.exports.template = `
+export const template = `
 <!DOCTYPE html>
 <html lang="en" class="height-full">
   <head>

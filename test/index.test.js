@@ -1,9 +1,9 @@
-const { describe, test, expect, beforeEach, afterEach } = require("vitest");
-const path = require("path");
-const fetchMock = require("fetch-mock");
+import { describe, test, expect, beforeEach, afterEach } from "vitest";
+import path from "node:path";
+import fetchMock from "fetch-mock";
 
-const { createLambdaFunction, Probot, ProbotOctokit } = require("../index");
-const app = require("./fixtures/app");
+import { createLambdaFunction, Probot, ProbotOctokit } from "../index";
+import app from "./fixtures/app.js";
 
 describe("@probot/adapter-aws-lambda-serverless", () => {
   let probot;

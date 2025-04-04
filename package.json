@@ -4,6 +4,7 @@
   "publishConfig": {
     "access": "public"
   },
+  "type": "module",
   "description": "An extension for running Probot in AWS Lambda",
   "main": "index.js",
   "types": "index.d.ts",
