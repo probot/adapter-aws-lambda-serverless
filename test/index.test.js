@@ -1,3 +1,4 @@
+const { describe, test, expect, beforeEach, afterEach } = require("vitest");
 const path = require("path");
 const fetchMock = require("fetch-mock");
 
