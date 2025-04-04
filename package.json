@@ -16,7 +16,7 @@
   "repository": "github:probot/adapter-aws-lambda-serverless",
   "dependencies": {
     "@types/aws-lambda": "^8.10.147",
-    "lowercase-keys": "^2.0.0",
+    "lowercase-keys": "^3.0.0",
     "probot": "^13.4.1"
   },
   "devDependencies": {
