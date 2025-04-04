@@ -2,7 +2,8 @@
   "name": "@probot/adapter-aws-lambda-serverless",
   "version": "0.0.0-development",
   "publishConfig": {
-    "access": "public"
+    "access": "public",
+    "provenance": true
   },
   "type": "module",
   "description": "An extension for running Probot in AWS Lambda",
