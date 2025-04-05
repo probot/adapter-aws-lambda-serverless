@@ -2,27 +2,28 @@
   "name": "@probot/adapter-aws-lambda-serverless",
   "version": "0.0.0-development",
   "publishConfig": {
-    "access": "public"
+    "access": "public",
+    "provenance": true
   },
+  "type": "module",
   "description": "An extension for running Probot in AWS Lambda",
   "main": "index.js",
   "types": "index.d.ts",
   "scripts": {
     "lint": "prettier --check '*.{js,md,json}' 'test/**/*.{js,json}' '.github/**/*.yml'",
     "lint:fix": "prettier --write '*.{js,md,json}' 'test/**/*.{js,json}' '.github/**/*.yml'",
-    "test": "jest"
+    "test": "vitest --environment=node --run"
   },
   "repository": "github:probot/adapter-aws-lambda-serverless",
   "dependencies": {
     "@types/aws-lambda": "^8.10.147",
-    "lowercase-keys": "^2.0.0",
+    "lowercase-keys": "^3.0.0",
     "probot": "^13.4.1"
   },
   "devDependencies": {
-    "@types/jest": "^29.0.0",
-    "jest": "^29.0.0",
-    "fetch-mock": "^10.0.5",
-    "prettier": "^2.4.1"
+    "fetch-mock": "^11.0.0",
+    "prettier": "~3.5.3",
+    "vitest": "^3.1.1"
   },
   "keywords": [
     "lambda",
@@ -31,12 +32,12 @@
     "probot-adapter",
     "serverless"
   ],
-  "jest": {
-    "testEnvironment": "node"
-  },
   "author": "Tommy Byrd <tcbyrd@github.com>",
   "contributors": [
     "Gregor Martynus (https://github.com/gr2m)"
   ],
-  "license": "ISC"
+  "license": "ISC",
+  "engines": {
+    "node": ">=18.0.0"
+  }
 }

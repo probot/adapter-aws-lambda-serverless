@@ -12,12 +12,12 @@ npm install @probot/adapter-aws-lambda-serverless
 
 ```javascript
 // handler.js
-const {
+import {
   createLambdaFunction,
   createProbot,
-} = require("@probot/adapter-aws-lambda-serverless");
-const appFn = require("./");
-module.exports.lambdaFn = createLambdaFunction(appFn, {
+} from "@probot/adapter-aws-lambda-serverless";
+import appFn from "./app.js";
+export const lambdaFn = createLambdaFunction(appFn, {
   probot: createProbot(),
 });
 ```
@@ -29,7 +29,7 @@ You need to add [environment variables to configure Probot](https://probot.githu
 ```yml
 provider:
   name: aws
-  runtime: nodejs12.x
+  runtime: nodejs22.x
   lambdaHashingVersion: 20201221
   environment:
     APP_ID: ${param:APP_ID}

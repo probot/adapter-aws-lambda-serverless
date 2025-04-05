@@ -1,8 +1,9 @@
-const path = require("path");
-const fetchMock = require("fetch-mock");
+import { describe, test, expect, beforeEach, afterEach } from "vitest";
+import path from "node:path";
+import fetchMock from "fetch-mock";
 
-const { createLambdaFunction, Probot, ProbotOctokit } = require("../index");
-const app = require("./fixtures/app");
+import { createLambdaFunction, Probot, ProbotOctokit } from "../index.js";
+import app from "./fixtures/app.js";
 
 describe("@probot/adapter-aws-lambda-serverless", () => {
   let probot;
@@ -33,7 +34,7 @@ describe("@probot/adapter-aws-lambda-serverless", () => {
       {
         body: {},
         status: 201,
-      }
+      },
     );
 
     const context = {};
@@ -56,7 +57,7 @@ describe("@probot/adapter-aws-lambda-serverless", () => {
           JSON.parse(options.body).body ===
           `Hello from test${path.sep}fixtures${path.sep}app.js`
         );
-      })
+      }),
     ).toBe(true);
   });
 
@@ -70,7 +71,7 @@ describe("@probot/adapter-aws-lambda-serverless", () => {
       {
         body: {},
         status: 201,
-      }
+      },
     );
 
     const context = {};
@@ -93,7 +94,7 @@ describe("@probot/adapter-aws-lambda-serverless", () => {
           JSON.parse(options.body).body ===
           `Hello from test${path.sep}fixtures${path.sep}app.js`
         );
-      })
+      }),
     ).toBe(true);
   });
 
@@ -107,7 +108,7 @@ describe("@probot/adapter-aws-lambda-serverless", () => {
       {
         body: {},
         status: 201,
-      }
+      },
     );
 
     const context = {};
@@ -130,7 +131,7 @@ describe("@probot/adapter-aws-lambda-serverless", () => {
           JSON.parse(options.body).body ===
           `Hello from test${path.sep}fixtures${path.sep}app.js`
         );
-      })
+      }),
     ).toBe(true);
   });
 
@@ -144,7 +145,7 @@ describe("@probot/adapter-aws-lambda-serverless", () => {
       {
         body: {},
         status: 201,
-      }
+      },
     );
 
     const context = {};
@@ -167,7 +168,7 @@ describe("@probot/adapter-aws-lambda-serverless", () => {
           JSON.parse(options.body).body ===
           `Hello from test${path.sep}fixtures${path.sep}app.js`
         );
-      })
+      }),
     ).toBe(true);
   });
 });
