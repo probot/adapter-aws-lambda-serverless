@@ -10,7 +10,10 @@ export default async function app(app) {
       "POST /repos/{owner}/{repo}/commits/{commit_sha}/comments",
       context.repo({
         commit_sha: context.payload.head_commit.id,
-        body: `Hello from ${relative(process.cwd(), fileURLToPath(import.meta.url))}`,
+        body: `Hello from ${relative(
+          process.cwd(),
+          fileURLToPath(import.meta.url)
+        )}`,
       })
     );
   });
