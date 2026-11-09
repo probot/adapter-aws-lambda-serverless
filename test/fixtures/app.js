@@ -12,9 +12,9 @@ export default async function app(app) {
         commit_sha: context.payload.head_commit.id,
         body: `Hello from ${relative(
           process.cwd(),
-          fileURLToPath(import.meta.url)
+          fileURLToPath(import.meta.url),
         )}`,
-      })
+      }),
     );
   });
 }
