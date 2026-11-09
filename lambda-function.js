@@ -1,9 +1,7 @@
-module.exports = lambdaFunction;
+import lowercaseKeys from "lowercase-keys";
+import { template } from "./views/probot.js";
 
-const lowercaseKeys = require("lowercase-keys");
-const { template } = require("./views/probot");
-
-async function lambdaFunction(probot, event, context) {
+export default async function lambdaFunction(probot, event, context) {
   if (event.httpMethod === "GET" && event.path === "/probot") {
     const res = {
       statusCode: 200,

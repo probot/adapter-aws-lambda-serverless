@@ -6,18 +6,21 @@
 
 ## Usage
 
+Requires Node.js 22 or later. This adapter uses ES modules, matching Probot v14.
+Set `"type": "module"` in your application's `package.json`.
+
 ```shell
 npm install @probot/adapter-aws-lambda-serverless
 ```
 
 ```javascript
 // handler.js
-const {
+import {
   createLambdaFunction,
   createProbot,
-} = require("@probot/adapter-aws-lambda-serverless");
-const appFn = require("./");
-module.exports.lambdaFn = createLambdaFunction(appFn, {
+} from "@probot/adapter-aws-lambda-serverless";
+import appFn from "./index.js";
+export const lambdaFn = createLambdaFunction(appFn, {
   probot: createProbot(),
 });
 ```
@@ -29,7 +32,7 @@ You need to add [environment variables to configure Probot](https://probot.githu
 ```yml
 provider:
   name: aws
-  runtime: nodejs12.x
+  runtime: nodejs22.x
   lambdaHashingVersion: 20201221
   environment:
     APP_ID: ${param:APP_ID}
@@ -78,6 +81,9 @@ Add yours!
 | 500       | Internal server error        | Incorrect headers value (`X-GitHub-Delivery`, `X-GitHub-Event`, `X-Hub-Signature`) or Probot error |
 
 ## Probot v11 migration key points
+
+This section describes the historical v11 migration. For Probot v14, use the
+ES module handler and Node.js runtime shown above.
 
 For Probot v11 support, this adapter introduces significant changes. Here the key points to update (in addition of [Probot v11 breaking changes](https://github.com/probot/probot/releases/tag/v11.0.0)):
 

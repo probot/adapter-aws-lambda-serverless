@@ -1,8 +1,18 @@
-const path = require("path");
-const fetchMock = require("fetch-mock");
+import path from "node:path";
+import { readFileSync } from "node:fs";
+import { createHmac } from "node:crypto";
+import fetchMock from "fetch-mock";
 
-const { createLambdaFunction, Probot, ProbotOctokit } = require("../index");
-const app = require("./fixtures/app");
+import { createLambdaFunction, Probot, ProbotOctokit } from "../index.js";
+import app from "./fixtures/app.js";
+
+const payload = readFileSync(
+  new URL("./fixtures/push.json", import.meta.url),
+  "utf8"
+);
+const signature = `sha256=${createHmac("sha256", "webhooksecret123")
+  .update(payload)
+  .digest("hex")}`;
 
 describe("@probot/adapter-aws-lambda-serverless", () => {
   let probot;
@@ -37,8 +47,6 @@ describe("@probot/adapter-aws-lambda-serverless", () => {
     );
 
     const context = {};
-    const payload = JSON.stringify(require("./fixtures/push.json"));
-    const signature = await probot.webhooks.sign(payload);
     const event = {
       headers: {
         "x-github-delivery": "eventid123",
@@ -74,8 +82,6 @@ describe("@probot/adapter-aws-lambda-serverless", () => {
     );
 
     const context = {};
-    const payload = JSON.stringify(require("./fixtures/push.json"));
-    const signature = await probot.webhooks.sign(payload);
     const event = {
       headers: {
         "x-github-delivery": "eventid123",
@@ -111,8 +117,6 @@ describe("@probot/adapter-aws-lambda-serverless", () => {
     );
 
     const context = {};
-    const payload = JSON.stringify(require("./fixtures/push.json"));
-    const signature = await probot.webhooks.sign(payload);
     const event = {
       headers: {
         "X-Github-Delivery": "eventid123",
@@ -148,8 +152,6 @@ describe("@probot/adapter-aws-lambda-serverless", () => {
     );
 
     const context = {};
-    const payload = JSON.stringify(require("./fixtures/push.json"));
-    const signature = await probot.webhooks.sign(payload);
     const event = {
       headers: {
         "X-Github-Delivery": "EventId123",
@@ -169,5 +171,39 @@ describe("@probot/adapter-aws-lambda-serverless", () => {
         );
       })
     ).toBe(true);
+  });
+
+  test("waits for application loading and only loads once", async () => {
+    let loads = 0;
+    const fn = createLambdaFunction(
+      async () => {
+        await Promise.resolve();
+        loads++;
+      },
+      { probot }
+    );
+
+    const event = { httpMethod: "GET", path: "/probot" };
+    const responses = await Promise.all([fn(event, {}), fn(event, {})]);
+
+    expect(loads).toBe(1);
+    for (const response of responses) {
+      expect(response.statusCode).toBe(200);
+      expect(response.body).toContain("Welcome to Probot!");
+    }
+  });
+
+  test("propagates application loading failures", async () => {
+    const error = new Error("App failed to load");
+    const fn = createLambdaFunction(
+      async () => {
+        throw error;
+      },
+      { probot }
+    );
+
+    await expect(fn({ httpMethod: "GET", path: "/probot" }, {})).rejects.toBe(
+      error
+    );
   });
 });
