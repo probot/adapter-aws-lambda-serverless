@@ -1,4 +1,4 @@
-import { Probot } from "probot";
+import { ApplicationFunction, Probot } from "probot";
 import {
   APIGatewayProxyEvent,
   APIGatewayProxyResult,
@@ -6,7 +6,6 @@ import {
   LambdaFunctionURLEvent,
   LambdaFunctionURLResult,
 } from "aws-lambda";
-import { ApplicationFunction } from "probot/lib/types";
 
 export * from "probot";
 
