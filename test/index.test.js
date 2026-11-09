@@ -8,7 +8,7 @@ import app from "./fixtures/app.js";
 
 const payload = readFileSync(
   new URL("./fixtures/push.json", import.meta.url),
-  "utf8"
+  "utf8",
 );
 const signature = `sha256=${createHmac("sha256", "webhooksecret123")
   .update(payload)
@@ -43,7 +43,7 @@ describe("@probot/adapter-aws-lambda-serverless", () => {
       {
         body: {},
         status: 201,
-      }
+      },
     );
 
     const context = {};
@@ -64,7 +64,7 @@ describe("@probot/adapter-aws-lambda-serverless", () => {
           JSON.parse(options.body).body ===
           `Hello from test${path.sep}fixtures${path.sep}app.js`
         );
-      })
+      }),
     ).toBe(true);
   });
 
@@ -78,7 +78,7 @@ describe("@probot/adapter-aws-lambda-serverless", () => {
       {
         body: {},
         status: 201,
-      }
+      },
     );
 
     const context = {};
@@ -99,7 +99,7 @@ describe("@probot/adapter-aws-lambda-serverless", () => {
           JSON.parse(options.body).body ===
           `Hello from test${path.sep}fixtures${path.sep}app.js`
         );
-      })
+      }),
     ).toBe(true);
   });
 
@@ -113,7 +113,7 @@ describe("@probot/adapter-aws-lambda-serverless", () => {
       {
         body: {},
         status: 201,
-      }
+      },
     );
 
     const context = {};
@@ -134,7 +134,7 @@ describe("@probot/adapter-aws-lambda-serverless", () => {
           JSON.parse(options.body).body ===
           `Hello from test${path.sep}fixtures${path.sep}app.js`
         );
-      })
+      }),
     ).toBe(true);
   });
 
@@ -148,7 +148,7 @@ describe("@probot/adapter-aws-lambda-serverless", () => {
       {
         body: {},
         status: 201,
-      }
+      },
     );
 
     const context = {};
@@ -169,7 +169,7 @@ describe("@probot/adapter-aws-lambda-serverless", () => {
           JSON.parse(options.body).body ===
           `Hello from test${path.sep}fixtures${path.sep}app.js`
         );
-      })
+      }),
     ).toBe(true);
   });
 
@@ -180,7 +180,7 @@ describe("@probot/adapter-aws-lambda-serverless", () => {
         await Promise.resolve();
         loads++;
       },
-      { probot }
+      { probot },
     );
 
     const event = { httpMethod: "GET", path: "/probot" };
@@ -199,11 +199,11 @@ describe("@probot/adapter-aws-lambda-serverless", () => {
       async () => {
         throw error;
       },
-      { probot }
+      { probot },
     );
 
     await expect(fn({ httpMethod: "GET", path: "/probot" }, {})).rejects.toBe(
-      error
+      error,
     );
   });
 });
