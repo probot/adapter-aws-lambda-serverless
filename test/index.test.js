@@ -14,10 +14,23 @@ const signature = `sha256=${createHmac("sha256", "webhooksecret123")
   .update(payload)
   .digest("hex")}`;
 
+const wasCommentCreated = () =>
+  fetchMock.callHistory
+    .calls({
+      url: "https://api.github.com/repos/probot/adapter-adapter-aws-lambda-serverless/commits/headcommitsha123/comments",
+      method: "POST",
+    })
+    .some(
+      ({ options }) =>
+        JSON.parse(options.body).body ===
+        `Hello from test${path.sep}fixtures${path.sep}app.js`
+    );
+
 describe("@probot/adapter-aws-lambda-serverless", () => {
   let probot;
 
   beforeEach(() => {
+    fetchMock.mockGlobal();
     probot = new Probot({
       githubToken: "test",
       // Disable throttling & retrying requests for easier testing
@@ -30,13 +43,13 @@ describe("@probot/adapter-aws-lambda-serverless", () => {
   });
 
   afterEach(() => {
-    fetchMock.restore();
+    fetchMock.hardReset();
   });
 
   test("happy path", async () => {
     const fn = createLambdaFunction(app, { probot });
 
-    const mock = fetchMock.postOnce(
+    fetchMock.postOnce(
       {
         url: "https://api.github.com/repos/probot/adapter-adapter-aws-lambda-serverless/commits/headcommitsha123/comments",
       },
@@ -58,20 +71,13 @@ describe("@probot/adapter-aws-lambda-serverless", () => {
 
     await fn(event, context);
 
-    expect(
-      mock.called((_url, options) => {
-        return (
-          JSON.parse(options.body).body ===
-          `Hello from test${path.sep}fixtures${path.sep}app.js`
-        );
-      })
-    ).toBe(true);
+    expect(wasCommentCreated()).toBe(true);
   });
 
   test("lowercase request headers", async () => {
     const fn = createLambdaFunction(app, { probot });
 
-    const mock = fetchMock.postOnce(
+    fetchMock.postOnce(
       {
         url: "https://api.github.com/repos/probot/adapter-adapter-aws-lambda-serverless/commits/headcommitsha123/comments",
       },
@@ -93,20 +99,13 @@ describe("@probot/adapter-aws-lambda-serverless", () => {
 
     await fn(event, context);
 
-    expect(
-      mock.called((_url, options) => {
-        return (
-          JSON.parse(options.body).body ===
-          `Hello from test${path.sep}fixtures${path.sep}app.js`
-        );
-      })
-    ).toBe(true);
+    expect(wasCommentCreated()).toBe(true);
   });
 
   test("GitHub request headers", async () => {
     const fn = createLambdaFunction(app, { probot });
 
-    const mock = fetchMock.postOnce(
+    fetchMock.postOnce(
       {
         url: "https://api.github.com/repos/probot/adapter-adapter-aws-lambda-serverless/commits/headcommitsha123/comments",
       },
@@ -128,20 +127,13 @@ describe("@probot/adapter-aws-lambda-serverless", () => {
 
     await fn(event, context);
 
-    expect(
-      mock.called((_url, options) => {
-        return (
-          JSON.parse(options.body).body ===
-          `Hello from test${path.sep}fixtures${path.sep}app.js`
-        );
-      })
-    ).toBe(true);
+    expect(wasCommentCreated()).toBe(true);
   });
 
   test("camelcase request headers (#62)", async () => {
     const fn = createLambdaFunction(app, { probot });
 
-    const mock = fetchMock.postOnce(
+    fetchMock.postOnce(
       {
         url: "https://api.github.com/repos/probot/adapter-adapter-aws-lambda-serverless/commits/headcommitsha123/comments",
       },
@@ -163,14 +155,7 @@ describe("@probot/adapter-aws-lambda-serverless", () => {
 
     await fn(event, context);
 
-    expect(
-      mock.called((_url, options) => {
-        return (
-          JSON.parse(options.body).body ===
-          `Hello from test${path.sep}fixtures${path.sep}app.js`
-        );
-      })
-    ).toBe(true);
+    expect(wasCommentCreated()).toBe(true);
   });
 
   test("waits for application loading and only loads once", async () => {
