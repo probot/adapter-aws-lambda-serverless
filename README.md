@@ -25,6 +25,18 @@ export const lambdaFn = createLambdaFunction(appFn, {
 });
 ```
 
+## Migrating from v4 to v5
+
+Version 5 introduces breaking changes for applications using version 4:
+
+- Upgrade your AWS Lambda runtime to Node.js 22 or later, such as `nodejs22.x`.
+- Update your application and any directly installed `probot` dependency for
+  compatibility with Probot 14.
+- Migrate CommonJS handlers and application modules to ES modules. Set
+  `"type": "module"` in your application's `package.json`, replace `require()`
+  with `import`, and replace `module.exports` with ES module exports, as shown
+  in the usage example above.
+
 ## Configuration
 
 You need to add [environment variables to configure Probot](https://probot.github.io/docs/configuration/) to your Lambda function. If you use the [Serverless App](https://app.serverless.com/), you can add parameters for `APP_ID`, `PRIVATE_KEY`, `WEBHOOK_SECRET`, the use these parameters in `serverless.yaml`.
