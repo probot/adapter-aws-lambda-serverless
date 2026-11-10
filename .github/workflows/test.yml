@@ -2,7 +2,7 @@ name: Test
 on:
   push:
     branches:
-      - main
+      - master
   pull_request:
     types: [opened, synchronize]
 
@@ -11,9 +11,11 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
+        # Keep newest first so lint runs on the latest version.
         node_version:
-          - 22
+          - 26
           - 24
+          - 22
     steps:
       - uses: actions/checkout@v7
       - name: Use Node.js ${{ matrix.node_version }}
@@ -23,14 +25,11 @@ jobs:
           cache: npm
       - run: npm ci
       - run: npm test
+      - run: npm run lint
+        if: ${{ strategy.job-index == 0 }}
   test:
     runs-on: ubuntu-latest
     needs: test_matrix
+    if: ${{ always() }}
     steps:
-      - uses: actions/checkout@v7
-      - uses: actions/setup-node@v7
-        with:
-          cache: npm
-          node-version: 22
-      - run: npm ci
-      - run: npm run lint
+      - run: test "${{ needs.test_matrix.result }}" = "success"
